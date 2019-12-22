@@ -15,13 +15,13 @@ body {
 	top: 20vh;
 	width: 60vw;
 	margin: auto;
-	background-color: white;
+	background-color: lightgrey;
 	padding: 5rem;
 }
 
 ul, form {
 	text-align: left;
-	margin-left: 50px;
+	margin-left: 300px;
 	padding: 0;
 }
 

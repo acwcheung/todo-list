@@ -1,14 +1,9 @@
-//place to store the list items
-//each items include text and completed boolean
-//add items
-//populateList
 //local storage
 //check items and strikethrough
 //change items
 //delete items
 
 const items = [];
-let li = [];
 const ul = document.querySelector('ul');
 const addItems = document.querySelector('.add-items');
 const input = document.querySelector('[name=item]');
@@ -16,6 +11,7 @@ const input = document.querySelector('[name=item]');
 function addItem(e) {
 	//form tag will auto-refresh the page
 	e.preventDefault();
+	if(input.value === '') { return };
 	text = input.value;
 	const item = {
 		text: text,
@@ -27,31 +23,50 @@ function addItem(e) {
 }
 
 function populateList(itemList) {
-	const html = items.map((item, i)=> {
+	const html = itemList.map((item, i)=> {
 		return `
-			<li><input type='checkbox' index=${i} />${item.text}</li>
+			<li>
+				<input type='checkbox' index=${i} />
+				${item.text}
+			</li>
 		`
 	}).join('');
 	ul.innerHTML = html;
-	li = Array.from(document.querySelectorAll('li'));
+	//add event listener to the updated list of items
+	const li = document.querySelectorAll('li');
 	li.forEach(li => li.addEventListener('click', changeItem, true));
 }
 
 function changeItem(e) {
+	//li contains input tag with checkbox, need to exclude the checkbox being clicked
+	if(e.target.tagName.toLowerCase() !== 'li') { return };
+	//avoid the li being clicked to call the changeItem 
 	this.removeEventListener('click', changeItem, true);
-	const inputIndex = this.querySelector('input')
-	const index = inputIndex.getAttribute('index');
-
-	text = this.innerText;
-	const input = document.createElement('input');
-	input.setAttribute('type', 'text');
-	this.appendChild(input);
+	//get the index of the item
+	const itemIndex = this.querySelector('input');
+	const index = itemIndex.getAttribute('index');
+	text = items[index].text;
+	//remove text from the li but it remmovs everything!
+	this.textContent = '';
 	
-	window.addEventListener('keydown', function(e) {
-		if(e.keyCode === 13) {
-			items[index].text = input.value;
-			populateList(items);			
-		}
+	//rebuild the li, append to keep the inputText working
+	const inputCheckbox = document.createElement('input');
+	inputCheckbox.setAttribute('type', 'checkbox');
+	const inputText = document.createElement('input');
+	inputText.setAttribute('type', 'text');
+	inputText.setAttribute('placeholder', text);
+	this.appendChild(inputCheckbox);
+	this.appendChild(inputText);
+
+	this.addEventListener('keydown', function(e) {
+		//the value is taken only if enter key is pressed
+		if(e.keyCode === 13 && inputText.value === '') {
+			items.splice(index, 1);
+			populateList(items);
+		} else if(e.keyCode === 13) {
+			items[index].text = inputText.value;
+			populateList(items);
+		} 
 	})
 }
 
