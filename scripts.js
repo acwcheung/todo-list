@@ -1,9 +1,8 @@
 //local storage
 //check items and strikethrough
-//change items
-//delete items
 
-const items = [];
+//get items from the local storage!
+const items = JSON.parse(localStorage.getItem('items')) || [];
 const ul = document.querySelector('ul');
 const addItems = document.querySelector('.add-items');
 const input = document.querySelector('[name=item]');
@@ -19,15 +18,17 @@ function addItem(e) {
 	}
 	items.push(item);
 	populateList(items);
+	//'items' is the field key, you can call it whatever you like
+	localStorage.setItem('items', JSON.stringify(items));
 	input.value = "";
 }
 
 function populateList(itemList) {
 	const html = itemList.map((item, i)=> {
 		return `
-			<li>
-				<input type='checkbox' index=${i} />
-				${item.text}
+			<li style="${item.completed? 'text-decoration:line-through': 'text-decoration:none'}">
+				<input type='checkbox' index=${i} ${item.completed? 'checked': ''}/>
+				<label for='item${i}'>${item.text}</label>
 			</li>
 		`
 	}).join('');
@@ -35,13 +36,15 @@ function populateList(itemList) {
 	//add event listener to the updated list of items
 	const li = document.querySelectorAll('li');
 	li.forEach(li => li.addEventListener('click', changeItem, true));
+	li.forEach(li => li.addEventListener('click', completeItem, true));
 }
 
 function changeItem(e) {
 	//li contains input tag with checkbox, need to exclude the checkbox being clicked
-	if(e.target.tagName.toLowerCase() !== 'li') { return };
+	if(!e.target.matches('label')) { return };
 	//avoid the li being clicked to call the changeItem 
 	this.removeEventListener('click', changeItem, true);
+	this.removeEventListener('click', completeItem, true);
 	//get the index of the item
 	const itemIndex = this.querySelector('input');
 	const index = itemIndex.getAttribute('index');
@@ -70,6 +73,19 @@ function changeItem(e) {
 	})
 }
 
+function completeItem(e) {
+	if(!e.target.matches('input')) { return };
+	const index = e.target.getAttribute('index');
+	items[index].completed = !items[index].completed;
+	items[index].completed? 
+		this.style.setProperty('text-decoration', 'line-through'):
+		this.style.setProperty('text-decoration', 'none');
+	//need to store the items checked before re-list again	
+	localStorage.setItem('items', JSON.stringify(items));
+	populateList(items);	
+}
+
 addItems.addEventListener('click', addItem);
+
 
 

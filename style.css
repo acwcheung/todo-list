@@ -1,3 +1,10 @@
+/*
+checkbox style
+button style
+responsive
+*/
+
+
 html {
 	font-size: 12px;
 	color: black;
@@ -5,36 +12,70 @@ html {
 }
 
 body {
-	background-color: black;
-	text-align: center;
+	background: url("picture.jpg") no-repeat center;
+	background-size: cover;
 	margin: 0;
 }
 
 .list {
 	position: relative;
-	top: 20vh;
-	width: 60vw;
+	top: 10vh;
+	width: 40vw;
 	margin: auto;
-	background-color: lightgrey;
-	padding: 5rem;
+	background-color: rgba(0, 0 ,0 , 0.5);
+	color: white;
+	padding: 5rem 10rem;
 }
 
 ul, form {
-	text-align: left;
-	margin-left: 300px;
 	padding: 0;
 }
 
-li > input {
-	margin-right: 15px;
+ul li {
+	padding: 1.5rem;
+	border-bottom: 1px dotted white;		
+}
+
+li > input[type=checkbox] {
+	margin-right: 1.2rem;
+}
+
+input[type=text] {
+	height: 2rem;
+	padding: 0.2rem 0.5rem;
+	font-size: 1.5rem;
+	margin-right: 1.5rem;
+	background: none;
+	border: none;
+	color: white;
+	border-bottom: 1px solid white;
+}
+
+input[type=text]::placeholder {
+	color: lightgrey;
+	font-size: 1.5rem;
+}
+
+li input[type=text] {
+	border: none;	
+}
+
+form > input.add-items {
+	background-color: white;
+	border-radius: 5px;
+	height: 2rem;
+	font-size: 1.5rem;
 }
 
 h1 {
 	font-size: 3rem;
+	text-align: center;
+	margin-top: 0;
 }
 
 ul {
 	font-size: 1.5rem;
 	list-style: none;
+	margin-bottom: 3rem;
 }
 
