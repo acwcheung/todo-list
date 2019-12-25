@@ -22,10 +22,19 @@ function addItem(e) {
 
 function populateList(itemList) {
 	const html = itemList.map((item, i)=> {
+		//hide the checkbox
+		//outer-box ::before, content
+		//checkmark ::after, content
+		//position
+		//hide the checkbox
+		//unhide the checkbox
+
 		return `
-			<li style="${item.completed? 'text-decoration:line-through': 'text-decoration:none'}">
+			<li>
 				<input type='checkbox' index=${i} ${item.completed? 'checked': ''}/>
-				<label for='item${i}'>${item.text}</label>
+				<label for='item${i}' style="${item.completed? 'text-decoration:line-through': 'text-decoration:none'}">
+					${item.text}
+				</label>
 			</li>
 		`
 	}).join('');
@@ -50,12 +59,14 @@ function changeItem(e) {
 	this.textContent = '';
 	
 	//rebuild the li, append to keep the inputText working
-	const inputCheckbox = document.createElement('input');
-	inputCheckbox.setAttribute('type', 'checkbox');
+	const checkbox = document.createElement('input');
+	checkbox.setAttribute('type', 'checkbox');
 	const inputText = document.createElement('input');
 	inputText.setAttribute('type', 'text');
 	inputText.setAttribute('placeholder', text);
-	this.appendChild(inputCheckbox);
+	const label = document.createElement('label')
+	this.appendChild(checkbox);
+	this.appendChild(label);
 	this.appendChild(inputText);
 
 	this.addEventListener('keydown', function(e) {
