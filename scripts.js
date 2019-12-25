@@ -1,6 +1,3 @@
-//local storage
-//check items and strikethrough
-
 //get items from the local storage!
 const items = JSON.parse(localStorage.getItem('items')) || [];
 const ul = document.querySelector('ul');
@@ -65,9 +62,11 @@ function changeItem(e) {
 		//the value is taken only if enter key is pressed
 		if(e.keyCode === 13 && inputText.value === '') {
 			items.splice(index, 1);
+			localStorage.setItem('items', JSON.stringify(items));
 			populateList(items);
 		} else if(e.keyCode === 13) {
 			items[index].text = inputText.value;
+			localStorage.setItem('items', JSON.stringify(items));
 			populateList(items);
 		} 
 	})
@@ -85,7 +84,16 @@ function completeItem(e) {
 	populateList(items);	
 }
 
+function initial() {
+	items.length === 0? 
+		ul.innerHTML = `<li><input type="checkbox">Your list is currently empty!</li>`:
+		populateList(items);		
+}
+
+initial();
 addItems.addEventListener('click', addItem);
+
+ 
 
 
 

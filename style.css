@@ -1,6 +1,5 @@
 /*
 checkbox style
-button style
 responsive
 */
 
@@ -60,11 +59,13 @@ li input[type=text] {
 	border: none;	
 }
 
-form > input.add-items {
-	background-color: white;
+form > button.add-items {
+	background: none;
+	color: white;
 	border-radius: 5px;
-	height: 2rem;
 	font-size: 1.5rem;
+	font-weight: 600;
+	padding: 5px 15px;
 }
 
 h1 {
