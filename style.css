@@ -20,59 +20,10 @@ body {
 	padding: 5rem 10rem;
 }
 
-/*custom the checkbox*/
 li > input[type=checkbox] {
-	opacity: 1;
 	margin-right: 1rem;
 }
 
-/*li > label::before {
-	content: '';
-	display: inline-block;
-	height: 16px;
-	width: 16px;
-	border: 1px solid white;
-}
-
-li > label::after {
-	content: '';
-	display: inline-block;
-	height: 6px;
-	width: 9px;
-	border-left: 2px solid white;
-	border-bottom: 2px solid white;
-	transform: rotate(-45deg);
-}
-
-li > label {
-	position: relative;
-}
-
-li > label::before, 
-li > label::after {
-	position: absolute;
-}
-
-li > label::before {
-	top: 3px;
-	left: -30px;
-} 
-
-li > label::after {
-	left: -27px;
-	top: 7px;
-}
-
-li input[type='checkbox'] + label::after {
-	content: none;
-}
-
-li input[type='checkbox']:checked + label::after {
-	content: '';
-}
-*/
-
-/*input box for items and add-items*/
 ul, form {
 	padding: 0;
 }
@@ -91,7 +42,13 @@ li input[type=text] {
 	margin: 0;
 }
 
+form {
+	display: flex;
+	justify-content: space-between;
+}
+
 form input[type=text] {
+	flex-grow: 2;
 	font-size: 1.5rem;
 	color: white;
 	background: none;
@@ -102,17 +59,18 @@ form input[type=text] {
 input[type=text]::placeholder {
 	color: lightgrey;
 	font-size: 1.5rem;
-	/*padding: 0.2rem 0.5rem;*/
+	padding: 0.2rem 1.5rem;
 }
 
 form > button.add-items {
+	flex-grow: 1;
 	background: none;
 	color: white;
 	border-radius: 5px;
 	font-size: 1.5rem;
 	font-weight: 600;
-	padding: 5px 15px;
-	margin-left: 2rem;
+	padding: 5px 0px;
+    margin-left: 3rem;
 }
 
 h1 {
